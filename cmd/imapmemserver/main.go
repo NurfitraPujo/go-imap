@@ -8,9 +8,9 @@ import (
 	"net"
 	"os"
 
-	"github.com/emersion/go-imap/v2"
-	"github.com/emersion/go-imap/v2/imapserver"
-	"github.com/emersion/go-imap/v2/imapserver/imapmemserver"
+	"github.com/NurfitraPujo/go-imap/v2"
+	"github.com/NurfitraPujo/go-imap/v2/imapserver"
+	"github.com/NurfitraPujo/go-imap/v2/imapserver/imapmemserver"
 )
 
 var (

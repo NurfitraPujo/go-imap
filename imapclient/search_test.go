@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/emersion/go-imap/v2"
+	"github.com/NurfitraPujo/go-imap/v2"
 )
 
 func TestSearch(t *testing.T) {

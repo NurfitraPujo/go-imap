@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/emersion/go-imap/v2"
+	"github.com/NurfitraPujo/go-imap/v2"
 )
 
 // MailboxTracker tracks the state of a mailbox.

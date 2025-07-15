@@ -6,9 +6,9 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/emersion/go-imap/v2"
-	"github.com/emersion/go-imap/v2/internal"
-	"github.com/emersion/go-imap/v2/internal/imapwire"
+	"github.com/NurfitraPujo/go-imap/v2"
+	"github.com/NurfitraPujo/go-imap/v2/internal"
+	"github.com/NurfitraPujo/go-imap/v2/internal/imapwire"
 )
 
 func returnSearchOptions(options *imap.SearchOptions) []string {

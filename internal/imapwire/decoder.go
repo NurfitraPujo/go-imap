@@ -8,9 +8,9 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/emersion/go-imap/v2"
-	"github.com/emersion/go-imap/v2/internal/imapnum"
-	"github.com/emersion/go-imap/v2/internal/utf7"
+	"github.com/NurfitraPujo/go-imap/v2"
+	"github.com/NurfitraPujo/go-imap/v2/internal/imapnum"
+	"github.com/NurfitraPujo/go-imap/v2/internal/utf7"
 )
 
 // This limits the max list nesting depth to prevent stack overflow.

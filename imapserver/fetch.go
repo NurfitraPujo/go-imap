@@ -8,9 +8,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/emersion/go-imap/v2"
-	"github.com/emersion/go-imap/v2/internal"
-	"github.com/emersion/go-imap/v2/internal/imapwire"
+	"github.com/NurfitraPujo/go-imap/v2"
+	"github.com/NurfitraPujo/go-imap/v2/internal"
+	"github.com/NurfitraPujo/go-imap/v2/internal/imapwire"
 )
 
 const envelopeDateLayout = "Mon, 02 Jan 2006 15:04:05 -0700"
