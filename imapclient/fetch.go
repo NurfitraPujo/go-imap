@@ -449,6 +449,24 @@ type FetchItemDataUID struct {
 
 func (FetchItemDataUID) fetchItemData() {}
 
+type FetchItemXGMThridID struct {
+	XGMThridID uint64
+}
+
+func (FetchItemXGMThridID) fetchItemData() {}
+
+type FetchItemXGMMsgID struct {
+	XGMMsgID uint64
+}
+
+func (FetchItemXGMMsgID) fetchItemData() {}
+
+type FetchItemXGMLabels struct {
+	XGMLabels []string
+}
+
+func (FetchItemXGMLabels) fetchItemData() {}
+
 // FetchItemDataBodyStructure holds data returned by FETCH BODYSTRUCTURE or
 // FETCH BODY.
 type FetchItemDataBodyStructure struct {
@@ -511,6 +529,11 @@ type FetchMessageBuffer struct {
 	BinarySection     []FetchBinarySectionBuffer
 	BinarySectionSize []FetchItemDataBinarySectionSize
 	ModSeq            uint64 // requires CONDSTORE
+
+	// Gmail Specific headers
+	XGMThridID uint64
+	XGMMsgID   uint64
+	XGMLabels  []string
 }
 
 func (buf *FetchMessageBuffer) populateItemData(item FetchItemData) error {
@@ -557,6 +580,12 @@ func (buf *FetchMessageBuffer) populateItemData(item FetchItemData) error {
 		buf.BinarySectionSize = append(buf.BinarySectionSize, item)
 	case FetchItemDataModSeq:
 		buf.ModSeq = item.ModSeq
+	case FetchItemXGMMsgID:
+		buf.XGMMsgID = item.XGMMsgID
+	case FetchItemXGMLabels:
+		buf.XGMLabels = item.XGMLabels
+	case FetchItemXGMThridID:
+		buf.XGMThridID = item.XGMThridID
 	default:
 		panic(fmt.Errorf("unsupported fetch item data %T", item))
 	}
@@ -804,6 +833,29 @@ func (c *Client) handleFetch(seqNum uint32) error {
 				return dec.Err()
 			}
 			item = FetchItemDataModSeq{ModSeq: modSeq}
+		case "X-GM-THRID":
+			var threadID uint64
+			if !dec.ExpectSP() || !dec.ExpectModSeq(&threadID) {
+				return dec.Err()
+			}
+			item = FetchItemXGMThridID{XGMThridID: threadID}
+		case "X-GM-MSGID":
+			var msgID uint64
+			if !dec.ExpectSP() || !dec.ExpectModSeq(&msgID) {
+				return dec.Err()
+			}
+			item = FetchItemXGMMsgID{XGMMsgID: msgID}
+		case "X-GM-LABELS":
+			if !dec.ExpectSP() {
+				return dec.Err()
+			}
+
+			labels, err := internal.ExpectLabels(dec)
+			if err != nil {
+				return err
+			}
+
+			item = FetchItemXGMLabels{XGMLabels: labels}
 		default:
 			return fmt.Errorf("unsupported msg-att name: %q", attName)
 		}

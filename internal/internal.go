@@ -92,6 +92,26 @@ func ExpectFlag(dec *imapwire.Decoder) (imap.Flag, error) {
 	return canonicalFlag(name), nil
 }
 
+func ExpectLabels(dec *imapwire.Decoder) ([]string, error) {
+	var labels []string
+	err := dec.ExpectList(func() error {
+		dec.SP()
+
+		var name string
+		if !dec.ExpectAString(&name) {
+			return dec.Err()
+		}
+
+		if name[0] == '\\' {
+			name = name[1:]
+		}
+
+		labels = append(labels, name)
+		return nil
+	})
+	return labels, err
+}
+
 func ExpectMailboxAttrList(dec *imapwire.Decoder) ([]imap.MailboxAttr, error) {
 	var attrs []imap.MailboxAttr
 	err := dec.ExpectList(func() error {
