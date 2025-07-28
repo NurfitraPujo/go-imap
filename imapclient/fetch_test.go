@@ -12,7 +12,10 @@ func TestFetch(t *testing.T) {
 	defer client.Close()
 	defer server.Close()
 
-	seqSet := imap.SeqSetNum(1)
+	seqSet, err := imap.UIDSetFromString("1:*")
+	if err != nil {
+		t.Fatal(err)
+	}
 	bodySection := &imap.FetchItemBodySection{}
 	fetchOptions := &imap.FetchOptions{
 		BodySection: []*imap.FetchItemBodySection{bodySection},

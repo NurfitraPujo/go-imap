@@ -147,3 +147,12 @@ func numListFromUIDList(uids []UID) []uint32 {
 func uidListFromNumList(nums []uint32) []UID {
 	return *(*[]UID)(unsafe.Pointer(&nums))
 }
+
+func UIDSetFromString(s string) (UIDSet, error) {
+	set, err := imapnum.ParseSet(s)
+	if err != nil {
+		return nil, err
+	}
+
+	return *(*UIDSet)(unsafe.Pointer(&set)), nil
+}

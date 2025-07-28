@@ -20,7 +20,8 @@ type FetchOptions struct {
 	BinarySectionSize []*FetchItemBinarySectionSize // requires IMAP4rev2 or BINARY
 	ModSeq            bool                          // requires CONDSTORE
 
-	ChangedSince uint64 // requires CONDSTORE
+	GoogleHeaders bool
+	ChangedSince  uint64 // requires CONDSTORE
 }
 
 // FetchItemBodyStructure contains FETCH options for the body structure.

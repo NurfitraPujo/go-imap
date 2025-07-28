@@ -57,10 +57,13 @@ func writeFetchItems(enc *imapwire.Encoder, numKind imapwire.NumKind, options *i
 		"INTERNALDATE":  options.InternalDate,
 		"RFC822.SIZE":   options.RFC822Size,
 		"MODSEQ":        options.ModSeq,
-		"X-GM-THRID":    true,
-		"X-GM-MSGID":    true,
-		"X-GM-LABELS":   true,
 	}
+	if options.GoogleHeaders {
+		m["X-GM-THRID"] = true
+		m["X-GM-MSGID"] = true
+		m["X-GM-LABELS"] = true
+	}
+
 	for k, req := range m {
 		if req {
 			listEnc.Item().Atom(k)

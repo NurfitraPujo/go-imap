@@ -177,7 +177,7 @@ func handleFetchAtt(dec *imapwire.Decoder, attName string, options *imap.FetchOp
 		}
 		options.BodySection = append(options.BodySection, &section)
 	default:
-		return newClientBugError("Unknown FETCH data item")
+		return newClientBugError(fmt.Sprintf("Unknown FETCH data item %s", attName))
 	}
 	return nil
 }
